@@ -3,7 +3,6 @@ import BarbershopInfo from "./_components/barbershop-info";
 import ServiceItem from "./_components/service-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { Key } from "react";
 
 interface BarbershopDetailsPageProps {
   params: {
@@ -40,9 +39,10 @@ const BarbershopDetailsPage = async ({
       <BarbershopInfo barbershop={barbershop} />
 
       <div className="flex flex-col gap-4 px-5 py-6">
-        {barbershop.services.map((service: { id: Key | null | undefined }) => (
+        {barbershop.services.map((service) => (
           <ServiceItem
             key={service.id}
+            barbershop={barbershop}
             service={service}
             isAuthenticated={!!session?.user}
           />
