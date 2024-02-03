@@ -7,6 +7,7 @@ import { db } from "../_lib/prisma";
 import BarbershopItem from "./_components/barbershop-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
+import { Key } from "react";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -63,9 +64,11 @@ export default async function Home() {
               Agendamentos
             </h2>
             <div className="flex gap-3 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
-              {confirmedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
-              ))}
+              {confirmedBookings.map(
+                (booking: { id: Key | null | undefined }) => (
+                  <BookingItem key={booking.id} booking={booking} />
+                ),
+              )}
             </div>
           </>
         )}
@@ -77,7 +80,7 @@ export default async function Home() {
         </h2>
 
         <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
+          {barbershops.map((barbershop: { id: Key | null | undefined }) => (
             <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />
             </div>
@@ -91,11 +94,13 @@ export default async function Home() {
         </h2>
 
         <div className="flex gap-4 overflow-x-auto px-5 [&::-webkit-scrollbar]:hidden">
-          {recommendedBarbershops.map((barbershop) => (
-            <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
-              <BarbershopItem key={barbershop.id} barbershop={barbershop} />
-            </div>
-          ))}
+          {recommendedBarbershops.map(
+            (barbershop: { id: Key | null | undefined }) => (
+              <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
+                <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+              </div>
+            ),
+          )}
         </div>
       </div>
     </div>
