@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { db } from "../_lib/prisma";
 import BookingItem from "../_components/booking-item";
 import { authOptions } from "../_lib/auth";
+import { Key } from "react";
 
 const BookingsPage = async () => {
   const session = await getServerSession(authOptions);
@@ -53,9 +54,11 @@ const BookingsPage = async () => {
             </h2>
 
             <div className="flex flex-col gap-3">
-              {confirmedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
-              ))}
+              {confirmedBookings.map(
+                (booking: { id: Key | null | undefined }) => (
+                  <BookingItem key={booking.id} booking={booking} />
+                ),
+              )}
             </div>
           </>
         )}
@@ -67,9 +70,11 @@ const BookingsPage = async () => {
             </h2>
 
             <div className="flex flex-col gap-3">
-              {finishedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
-              ))}
+              {finishedBookings.map(
+                (booking: { id: Key | null | undefined }) => (
+                  <BookingItem key={booking.id} booking={booking} />
+                ),
+              )}
             </div>
           </>
         )}
